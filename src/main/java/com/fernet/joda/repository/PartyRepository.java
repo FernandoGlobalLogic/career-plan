@@ -1,7 +1,7 @@
 package com.fernet.joda.repository;
 
-import generated.Party;
-import generated.Person;
+import io.spring.guides.gs_producing_web_service.Party;
+import io.spring.guides.gs_producing_web_service.Person;
 import org.springframework.stereotype.Component;
 import org.springframework.util.Assert;
 
@@ -9,8 +9,8 @@ import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.Map;
 
-import static generated.PartyType.ELECTRONIC;
-import static generated.PartyType.ROCK_FESTIVAL;
+import static io.spring.guides.gs_producing_web_service.PartyType.ELECTRONIC;
+import static io.spring.guides.gs_producing_web_service.PartyType.ROCK_FESTIVAL;
 
 
 /**
@@ -35,7 +35,7 @@ public class PartyRepository {
         Party rockFestival = new Party();
         Person rockManager = new Person();
         electronicManager.setName("Rock & Roll Nena");
-        rockFestival.setName("Cosquin Rock");
+        rockFestival.setName("CosquinRock");
         rockFestival.setPerson(rockManager);
         rockFestival.setType(ROCK_FESTIVAL);
 

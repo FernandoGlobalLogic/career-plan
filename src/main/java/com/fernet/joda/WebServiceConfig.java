@@ -1,5 +1,6 @@
 package com.fernet.joda;
 
+import com.fernet.joda.endpoint.PartyEndpoint;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -15,26 +16,28 @@ import org.springframework.xml.xsd.XsdSchema;
 @EnableWs
 @Configuration
 public class WebServiceConfig extends WsConfigurerAdapter {
-	@Bean
-	public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
-		MessageDispatcherServlet servlet = new MessageDispatcherServlet();
-		servlet.setApplicationContext(applicationContext);
-		servlet.setTransformWsdlLocations(true);
-		return new ServletRegistrationBean(servlet, "/ws/*");
-	}
+    @Bean
+    public ServletRegistrationBean messageDispatcherServlet(ApplicationContext applicationContext) {
+        MessageDispatcherServlet servlet = new MessageDispatcherServlet();
+        servlet.setApplicationContext(applicationContext);
+        servlet.setTransformWsdlLocations(true);
+        return new ServletRegistrationBean(servlet, "/ws/*");
+    }
 
-	@Bean(name = "parties")
-	public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema countriesSchema) {
-		DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-		wsdl11Definition.setPortTypeName("CountriesPort");
-		wsdl11Definition.setLocationUri("/ws");
-		wsdl11Definition.setTargetNamespace("http://spring.io/guides/gs-producing-web-service");
-		wsdl11Definition.setSchema(countriesSchema);
-		return wsdl11Definition;
-	}
+    @Bean(name = "parties")
+    public DefaultWsdl11Definition defaultWsdl11Definition(XsdSchema partiesSchema) {
+        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
+        wsdl11Definition.setPortTypeName("PartiesPort");
+        wsdl11Definition.setLocationUri("/ws");
 
-	@Bean
-	public XsdSchema countriesSchema() {
-		return new SimpleXsdSchema(new ClassPathResource("party.xsd"));
-	}
+        wsdl11Definition.setTargetNamespace(PartyEndpoint.NAMESPACE_URI);
+
+        wsdl11Definition.setSchema(partiesSchema);
+        return wsdl11Definition;
+    }
+
+    @Bean
+    public XsdSchema partySchema() {
+        return new SimpleXsdSchema(new ClassPathResource("party.xsd"));
+    }
 }

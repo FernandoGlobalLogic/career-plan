@@ -1,8 +1,9 @@
 package com.fernet.joda.endpoint;
 
 import com.fernet.joda.repository.PartyRepository;
-import generated.GetPartyRequest;
-import generated.GetPartyResponse;
+
+import io.spring.guides.gs_producing_web_service.GetPartyRequest;
+import io.spring.guides.gs_producing_web_service.GetPartyResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
@@ -14,8 +15,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
  */
 @Endpoint
 public class PartyEndpoint {
-//    private static final String NAMESPACE_URI = "http://spring.io/guides/gs-producing-web-service";
-
+    public static final String NAMESPACE_URI = "http://spring.io/guides/gs-producing-web-service";
     private PartyRepository partyRepository;
 
     @Autowired
@@ -23,7 +23,7 @@ public class PartyEndpoint {
         this.partyRepository = partyRepository;
     }
 
-    @PayloadRoot(localPart = "getPartyRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getPartyRequest")
     @ResponsePayload
     public GetPartyResponse getParties(@RequestPayload GetPartyRequest request) {
         GetPartyResponse response = new GetPartyResponse();
